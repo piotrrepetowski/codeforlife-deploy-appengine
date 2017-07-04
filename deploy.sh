@@ -11,7 +11,7 @@ if [ ! -x ${GCLOUD} ]; then
     rm google-cloud-sdk-159.0.0-linux-x86_64.tar.gz
 fi
 
-#${GCLOUD} --quiet components update  #to put back when the migrations run with latest cloud sdk version on SemaphoreCI
+${GCLOUD} --quiet components update  #to put back when the migrations run with latest cloud sdk version on SemaphoreCI
 ${GCLOUD} auth activate-service-account --key-file .gcloud-key
 
 export MODULE_NAME=$1
