@@ -119,7 +119,7 @@ MEDIA_ROOT = rel('static')+'/email_media/'
 
 LOGIN_URL = '/'
 LOGOUT_URL = '/logout/'
-LOGIN_REDIRECT_URL = reverse_lazy('portal.views.teacher.home.teacher_home')
+LOGIN_REDIRECT_URL = reverse_lazy('portal.views.teacher.dashboard.dashboard_manage')
 
 
 # Required for admindocs
@@ -176,13 +176,13 @@ else:
             'USER': 'root',
             'PASSWORD': os.getenv('CLOUD_SQL_PASSWORD'),
             'OPTIONS': {
-                'ssl': {
-                    'ca': 'server-ca.pem',
-                    'cert': 'client-cert.pem',
-                    'cipher': 'AES128-SHA',
-                    'key': 'client-key.pem',
-                }
-            }
+                 'ssl': {
+                     'ca': 'server-ca.pem',
+                     'cert': 'client-cert.pem',
+                     'cipher': 'AES128-SHA',
+                     'key': 'client-key.pem',
+                 }
+             }
         }
     }
     PIPELINE_ENABLED = True

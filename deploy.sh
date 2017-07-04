@@ -3,15 +3,15 @@
 export CLOUDSDK_CORE_DISABLE_PROMPTS=1
 export CLOUDSDK_PYTHON_SITEPACKAGES=1
 
-GCLOUD=${SNAP_CACHE_DIR}/google-cloud-sdk/bin/gcloud
+GCLOUD=${SEMAPHORE_CACHE_DIR}/google-cloud-sdk/bin/gcloud
 
 if [ ! -x ${GCLOUD} ]; then
-    wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-91.0.1-linux-x86_64.tar.gz
-    tar zxf google-cloud-sdk-91.0.1-linux-x86_64.tar.gz -C ${SNAP_CACHE_DIR}
-    rm google-cloud-sdk-91.0.1-linux-x86_64.tar.gz
+    wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-159.0.0-linux-x86_64.tar.gz
+    tar zxf google-cloud-sdk-159.0.0-linux-x86_64.tar.gz -C ${SEMAPHORE_CACHE_DIR}
+    rm google-cloud-sdk-159.0.0-linux-x86_64.tar.gz
 fi
 
-${GCLOUD} --quiet components update
+#${GCLOUD} --quiet components update  #to put back when the migrations run with latest cloud sdk version on SemaphoreCI
 ${GCLOUD} auth activate-service-account --key-file .gcloud-key
 
 export MODULE_NAME=$1
