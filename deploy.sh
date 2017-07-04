@@ -5,13 +5,19 @@ export CLOUDSDK_PYTHON_SITEPACKAGES=1
 
 GCLOUD=${SEMAPHORE_CACHE_DIR}/google-cloud-sdk/bin/gcloud
 
+#if [ ! -x ${GCLOUD} ]; then
+#    wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-91.0.1-linux-x86_64.tar.gz
+#    tar zxf google-cloud-sdk-91.0.1-linux-x86_64.tar.gz -C ${SEMAPHORE_CACHE_DIR}
+#    rm google-cloud-sdk-91.0.1-linux-x86_64.tar.gz
+#fi
+
 if [ ! -x ${GCLOUD} ]; then
     wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-159.0.0-linux-x86_64.tar.gz
     tar zxf google-cloud-sdk-159.0.0-linux-x86_64.tar.gz -C ${SEMAPHORE_CACHE_DIR}
     rm google-cloud-sdk-159.0.0-linux-x86_64.tar.gz
 fi
 
-#${GCLOUD} --quiet components update  #to put back when the migrations run with latest cloud sdk version on SemaphoreCI
+#${GCLOUD} --quiet components update
 ${GCLOUD} auth activate-service-account --key-file .gcloud-key
 
 export MODULE_NAME=$1
@@ -20,7 +26,7 @@ export DATABASE_POSTFIX="$3"
 export DATABASE_NAME="cfl_${DATABASE_POSTFIX}"
 export CACHE_PREFIX="${MODULE_NAME}-${VERSION}-"
 
-./manage.py migrate --noinput
+./manage.py migrate --noinput --verbosity 3
 
 envsubst <app.yaml.tmpl >app.yaml
 
